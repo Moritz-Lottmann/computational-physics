@@ -49,6 +49,7 @@ for index in range(anzahl_h):
     # berechne die analytische Ableitung
     analytisch = np.cos(xwerte)
 
+    #berechnen des Gesamtfehlers
     fehler[index] = h[index]*np.sum(abs(ableitung-analytisch))
 
 
