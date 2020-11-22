@@ -16,6 +16,11 @@ def diffquot(fhandle, a, b, h):
 '''Test mit Sinus'''
 if __name__ == "__main__":
     import matplotlib.pyplot as plt
-    xval, diff = diffquot(np.sin,-10,10,0.1)
-    plt.plot(xval, np.sin(xval), xval, diff)
+    xwerte, ableitung = diffquot(np.sin,-10,10,0.1)
+    fig, ax = plt.subplots()
+    ax.plot(xwerte, np.sin(xwerte), label='sin(x)')
+    ax.plot(xwerte, ableitung, label='num. diff.')
+    ax.set_title('Funktion und ihre Ableitung')
+    ax.legend(loc='best')
+    fig.tight_layout()
     plt.show()

@@ -56,7 +56,7 @@ for index in range(anzahl_h):
 # Darstellung als Linienplot
 
 fig, ax = plt.subplots()
-ax.plot(fehler, label='Gesamtfehler')
+ax.plot(h, fehler, label='Gesamtfehler')
 ax.set_title('Gesamtfehler in Abhängigkeit der Schrittweite')
 ax.legend(loc='best')
 ax.set_xlabel('Schrittweite h')
