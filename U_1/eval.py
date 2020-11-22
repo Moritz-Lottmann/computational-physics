@@ -58,13 +58,15 @@ fig, ax = plt.subplots()
 ax.plot(fehler, label='Gesamtfehler')
 ax.set_title('Gesamtfehler in Abhängigkeit der Schrittweite')
 ax.legend(loc='best')
+ax.set_xlabel('Schrittweite h')
+ax.set_ylabel('Gesamtfehler')
 fig.tight_layout()
 plt.show()
 
 #%% lokaler Fehler für feste Schrittweiten
 
 # überschreibe h erneut
-h = [1, 2, 2]
+h = [1, 2, 3]
 
 fig, ax = plt.subplots()
 
