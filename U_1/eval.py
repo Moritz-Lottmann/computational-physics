@@ -8,7 +8,7 @@ untersucht.
 
 import numpy as np
 import matplotlib.pyplot as plt
-from module_diffquot import diffquot
+from diffquot import diffquot
 
 # Aufruf der Ableitungsfunktion und Speichern des Ergebnis in zwei Variablen.
 # Wir nutzen hier die Werte für den Beispielaufruf der Funktion diffquot.
@@ -30,15 +30,16 @@ plt.show()
 
 #%% Gesamtfehler in Abhängigkeit der Schrittweite
 
-anzahl_h = ???
-h_min = ???
-h_max = ???
+anzahl_h = 200
+h_min = 0.01
+h_max = 3
 
 # äquidistanter Vektor im Intervall [h_min, h_max] der Länge anzahl_h
-h = ???
+h = np.linspace(h_min, h_max, anzahl_h)
 
 # Intialisierung des Gesamtfehler-Vektors
 
+fehler = np.full_like(h, None)
 
 for index in range(anzahl_h):
 
@@ -46,18 +47,24 @@ for index in range(anzahl_h):
     xwerte, ableitung = diffquot(fhandle, a, b, h[index])
 
     # berechne die analytische Ableitung
+    analytisch = np.cos(xwerte)
 
-
-    # berechne den Gesamtfehler für jedes h
+    fehler[index] = h[index]*np.sum(abs(ableitung-analytisch))
 
 
 # Darstellung als Linienplot
 
+fig, ax = plt.subplots()
+ax.plot(fehler, label='Gesamtfehler')
+ax.set_title('Gesamtfehler in Abhängigkeit der Schrittweite')
+ax.legend(loc='best')
+fig.tight_layout()
+plt.show()
 
 #%% lokaler Fehler für feste Schrittweiten
 
 # überschreibe h erneut
-h = [?, ?, ?]
+h = [1, 2, 2]
 
 fig, ax = plt.subplots()
 
@@ -67,9 +74,10 @@ for index in range(3):
     xwerte, ableitung = diffquot(fhandle, a, b, h[index])
 
     # berechne die analytische Ableitung
+    analytisch = np.cos(xwerte)
 
     # Darstellung des Betrags der Differenz beider Ableitungen als Linienplot
-    ax.plot(xwerte, ???,
+    ax.plot(xwerte, abs(ableitung-analytisch),
             label='h=%.1f' % h[index])
 
 # Plotbeschriftung
