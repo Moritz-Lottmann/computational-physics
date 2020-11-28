@@ -50,5 +50,7 @@ def intrect(fhandle, a, b, h):
 
     return area, xwerte, stamm_funk
 
-area, xwerte, stamm_funk = intrect(np.exp, 0, 10, 0.01)
-print(stamm_funk)
+
+if __name__ == '__main__':
+    area, xwerte, stamm_funk = intrect(np.exp, 0, 10, 0.01)
+    print(stamm_funk)
