@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import numpy as np
+import matplotlib.pyplot as plt
 def intrect(fhandle, a, b, h):
     """ Numerische Integration einer beliebigen integrierbaren Funktion mittels
     der Rechteckregel.
@@ -32,19 +34,21 @@ def intrect(fhandle, a, b, h):
         area, xwerte, stamm_funk = intrect(np.exp, 0, 10, 0.01)
     """
 
-
     # Mittelpunkte der Intervalle ermitteln
     # --> Vektor der Intervall-Mittelpunkte durch Verschiebung um h/2
-
+    xwerte_mitte = np.arange(a + h/2, b - h/2, h)
     # Funktionswerte an den Intervallmittelpunkten
-
+    ywerte = fhandle(xwerte_mitte)
     # Aufsummierung von Teilintervallen durch cumsum
-
+    stamm_funk = np.cumsum(ywerte)*h
     # Berechnung der Fläche
-
+    area = stamm_funk[-1]
     # Berechnung der xwerte für Darstellung der Stammfunktion, jeweils am
     # rechten Rand des Teilintervalls
-
     # linke Intervallgrenze hinzufügen
+    xwerte = np.append(a, xwerte_mitte + h/2)
 
     return area, xwerte, stamm_funk
+
+area, xwerte, stamm_funk = intrect(np.exp, 0, 10, 0.01)
+print(stamm_funk)
