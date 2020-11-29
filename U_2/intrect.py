@@ -1,42 +1,10 @@
-# -*- coding: utf-8 -*-
 import numpy as np
 import matplotlib.pyplot as plt
 def intrect(fhandle, a, b, h):
-    """ Numerische Integration einer beliebigen integrierbaren Funktion mittels
-    der Rechteckregel.
-
-    Argumente
-    ---------
-    fhandle : function
-        die zu integrierende Funktion
-    a : int
-        unter Intervallgrenze
-    b : int
-        obere Intervallgrenze
-    h : float
-        Schrittweite der Teilintervalle
-
-    Output: 3-Tupel
-    ---------------
-    area : float
-        Berechnete Fläche
-    xwerte : float
-        Definitionsbereich der Funktion (1-d array)
-    stamm_funk : float
-        Berechnete Funktionswerte der Stammfunktion (1-d array)
-
-    Funktionsaufruf
-    ---------------
-        area, xwerte, stamm_funk = intrect(fhandle, a, b, h)
-
-    Beispiel
-    --------
-        area, xwerte, stamm_funk = intrect(np.exp, 0, 10, 0.01)
-    """
-
     # Mittelpunkte der Intervalle ermitteln
     # --> Vektor der Intervall-Mittelpunkte durch Verschiebung um h/2
-    xwerte_mitte = np.arange(a + h/2, b - h/2, h)
+    xwerte_mitte = np.arange(a + h/2, b - h/2.00001, h)
+    #2.00001 da sonst der letzte Wert nicht mitgenommen wird
     # Funktionswerte an den Intervallmittelpunkten
     ywerte = fhandle(xwerte_mitte)
     # Aufsummierung von Teilintervallen durch cumsum
@@ -50,7 +18,9 @@ def intrect(fhandle, a, b, h):
 
     return area, xwerte, stamm_funk
 
-
+#Test
 if __name__ == '__main__':
-    area, xwerte, stamm_funk = intrect(np.exp, 0, 10, 0.01)
-    print(stamm_funk)
+    f_x2 = np.sin
+    area, xwerte, stamm_funk = intrect(f_x2 , 0, 10, 0.0001)
+    plt.plot(xwerte[:-1], stamm_funk, xwerte[:-1], f_x2(xwerte[:-1]))
+    plt.show()
