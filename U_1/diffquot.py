@@ -14,7 +14,7 @@ def diffquot(fhandle, a, b, h):
     return (xwerte[:-1], ableitung)             #return der x werte und der ableitung
 
 '''Test mit Sinus'''
-if __name__ == "__main__":
+if __name__ == '__main__':
     import matplotlib.pyplot as plt
     xwerte, ableitung = diffquot(np.sin,-10,10,0.1)
     fig, ax = plt.subplots()
