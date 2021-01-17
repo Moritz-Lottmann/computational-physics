@@ -34,10 +34,12 @@ def elimination(L, U, b):
     x = np.zeros(n)
 
     # Vorwärtselimination
-    y = np.array([b[i] - sum(L[i, j] * y[j] for j in range(0, i-1)) for i in range(0,n)])
+    for i in range(n):
+        y[i] = b[i] - sum(L[i, j] * y[j] for j in range(i))
 
     # Rückwärtselimination
-    x = np.array([1 / U[i, i] * (y[i] - sum(U[i, j] * x[j] for j in range(1+i, n))) for i in range(0,n)])
+    for i in range(n-1, -1, -1):
+        x[i] = 1 / U[i, i] * (y[i] - sum(U[i, j] * x[j] for j in range(1+i, n)))
 
     return x
 
@@ -66,10 +68,10 @@ def myLU(A):
 
     n = A.shape[0]
     L = np.identity(n)
-    U = A
+    U = np.copy(A)
 
 
-    for j in range(0, n):
+    for j in range(n):
 
         for i in range(j+1, n):
 
@@ -86,10 +88,12 @@ if __name__ == "__main__":
     A = np.array([[1,2,3],
                   [4,5,6],
                   [9,8,7]])
-
-    L, U = myLU(A)
-    print(L)
-    print()
-    print(U)
-    print()
-    print(np.dot(L,U))
+    C = np.array([[1,1,0],
+                  [4,0,2],
+                  [0,2,1]])
+    B = np.ones_like(A)
+    b = np.array([1, 3, 3])
+    L, U = myLU(C)
+    x = elimination(L, U, b)
+    print(x)
+    print(C.dot(x))
