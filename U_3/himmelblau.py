@@ -28,8 +28,8 @@ def himmelblau(coordvals):
 
 
 
-    x = coordvals[...,0]
-    y = coordvals[...,1]
+    x = coordvals[0]
+    y = coordvals[1]
 
     fvalues = (x ** 2 + y - 11) ** 2 + (x + y ** 2 - 7) ** 2
 
